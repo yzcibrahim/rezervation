@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,13 @@ namespace DataAccessLayer.Repositories
         public T Create(T usr)
         {
             _ctx.Set<T>().Add(usr);
+            _ctx.SaveChanges();
+            return usr;
+        }
+
+        public T Update(T usr)
+        {
+            _ctx.Entry(usr).State = EntityState.Modified;
             _ctx.SaveChanges();
             return usr;
         }
